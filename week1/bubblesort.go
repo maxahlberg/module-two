@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Promt user to input a array of upt to 10
-	tenInts := make([]int, 10, 10)
+	tenInts := make([]int, 0, 10)
 	fmt.Printf("Input up to 10 comma separated integers, eg. '199,-3,5,2' (without the ' ) : \n")
 	inputReader := bufio.NewScanner(os.Stdin)
 	var txt string
@@ -27,21 +27,24 @@ func main() {
 			}
 			row = append(row, int(fl))
 		}
-		tenInts = row[:10] //Takes the first ten inputs
+		if len(row) > 10 {
+			tenInts = row[:10] //Takes the first ten inputs
+		}
+		tenInts = row
 		fmt.Printf("The input after parsing %v \n", tenInts)
 	}
 	// Create a bubble sort algorithm
-	bubbleSort(&tenInts)
+	bubbleSort(tenInts)
 	// Print the sorted lice
 	fmt.Printf("The Bubble Sorted slice is: %v \n", tenInts)
 
 }
 
-func bubbleSort(tenInts *[]int) {
+func bubbleSort(tenInts []int) {
 	// Crreate a swap function to swap the values in the slice
-	for i := 0; i < len(*tenInts); i++ {
-		for ii := 0; ii < len(*tenInts)-1; ii++ {
-			swap(*tenInts, ii)
+	for i := 0; i < len(tenInts); i++ {
+		for ii := 0; ii < len(tenInts)-1; ii++ {
+			swap(tenInts, ii)
 		}
 	}
 
