@@ -29,7 +29,7 @@ func main() {
 
 func genDisplaceFn(a, v, s float64) func(time float64)(disp float64)  {
 	return func(t float64) (disp float64){
-		fmt.Printf("all variables: a: %v, v: %v, s:%v, t:%v, \n", a, v, s, t)
+		fmt.Printf("all initail variables: a: %v, v: %v, s:%v, t:%v, \n", a, v, s, t)
 		disp = 0.5*a*math.Pow(t, 2)+ v*t + s
 		return disp
 	}
@@ -51,7 +51,6 @@ func parseInput(inputReader *bufio.Scanner) []float64{
 			row = append(row, fl)
 		}
 		initialCond = row
-		fmt.Printf("The input after parsing %v \n", initialCond)
 	}
 	return initialCond
 }
