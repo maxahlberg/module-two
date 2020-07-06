@@ -6,41 +6,38 @@ import (
 )
 
 type Animal struct {
-	sort  string
 	food  string
 	loco  string
 	sound string
 }
 
 func (a *Animal) Eat() {
-	fmt.Printf("----------------- Your answer is --------------\n")
-	time.Sleep(1 * time.Second)
-	fmt.Printf("The %s eats: %v \n", a.sort, a.food)
+	fmt.Printf(" eats: %v \n", a.food)
 	fmt.Printf("------------------ Lets go again --------------\n")
 	time.Sleep(2 * time.Second)
 }
 
 func (a *Animal) Move() {
-	fmt.Printf("----------------- Your answer is --------------\n")
-	time.Sleep(1 * time.Second)
-	fmt.Printf("The %s goes from A to B by: %v \n", a.sort, a.loco)
+	fmt.Printf(" goes from A to B by: %v \n", a.loco)
 	fmt.Printf("------------------ Lets go again --------------\n")
 	time.Sleep(2 * time.Second)
 }
 
 func (a *Animal) Speak() {
-	fmt.Printf("----------------- Your answer is --------------\n")
-	time.Sleep(1 * time.Second)
-	fmt.Printf("The %s sound is: %v \n", a.sort, a.sound)
+	fmt.Printf(" sound is: %v \n", a.sound)
 	fmt.Printf("------------------ Lets go again --------------\n")
 	time.Sleep(2 * time.Second)
 }
 
 func main() {
 	// Defining animal
-	Cow := newAnimal("cow", "grass", "walk", "moo")
-	Bird := newAnimal("bird", "worms", "fly", "peep")
-	Snake := newAnimal("snake", "mice", "slither", "hsss")
+	m := make(map[string]Animal)
+	cow := newAnimal("grass", "walk", "moo")
+	bird := newAnimal("worms", "fly", "peep")
+	snake := newAnimal("mice", "slither", "hsss")
+	m["cow"] = cow
+	m["bird"] = bird
+	m["snake"] = snake
 	var animal, information string
 	for 1 == 1 {
 		welcome()
@@ -48,17 +45,21 @@ func main() {
 		if err != nil {
 			fmt.Printf("failing reading input with scan\n")
 		}
-		if animal == "x"{break}
-		animals := []Animal{Cow, Bird, Snake}
+		if animal == "x" {
+			break
+		}
+		animals := []string{"cow", "bird", "snake"}
 		for _, v := range animals {
-			if animal == v.sort {
+			if animal == v {
+				any := m[animal]
+				fmt.Printf("The %s", animal)
 				switch {
 				case information == "speak":
-					v.Speak()
+					any.Speak()
 				case information == "move":
-					v.Move()
+					any.Move()
 				case information == "eat":
-					v.Eat()
+					any.Eat()
 				default:
 					fmt.Printf("no match in switch\n")
 				}
@@ -67,18 +68,18 @@ func main() {
 	}
 }
 
-func newAnimal(sort, eat, move, speak string) (a Animal) {
-	a.sort = sort
+func newAnimal(eat, move, speak string) (a Animal) {
 	a.food = eat
 	a.loco = move
 	a.sound = speak
 	return a
 }
-func welcome(){
+
+func welcome() {
 	fmt.Printf("Welcome to Animal info: \n" +
 		"Ask me anout any animal, as long as it is either 'cow', 'bird' or 'snake' \n" +
 		"Ask me then what it can 'eat', how it 'move' or 'speak'\n" +
 		"for example 'bird eat'\n" +
-		"write 'x x' to exit\n"+
+		"write 'x x' to exit\n" +
 		">\n")
 }
